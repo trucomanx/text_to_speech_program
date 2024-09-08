@@ -4,25 +4,22 @@ This package provides a text-to-speech server, using `gtts` and `playsound`, and
 
 ## Instalação
 
-### 1. Install the package locally
-
-To install the package locally, follow the instructions below:
-
-```bash
-git clone https://github.com/trucomanx/text_to_speech_program.git
-cd text_to_speech_program/src
-python setup.py install
-```
-
-### 2. Create a tar.gz package for distribution
+### 1. Create a tar.gz package for distribution
 
 If you want to package the project for distribution via PyPI or to other users:
 
 ```bash
+git clone https://github.com/trucomanx/text_to_speech_program.git
+cd text_to_speech_program/src
 python3 setup.py sdist
 ```
 
-This will generate a `*.tar.gz` file inside the `dist/` folder. The package can be installed using:
+This will generate a `*.tar.gz` file inside the `dist/` folder. 
+
+### 1. Install the package locally
+
+To install the package `dist/*.tar.gz` locally, follow the instructions below:
+
 
 ```bash
 pip install dist/text_to_speech_program-*.tar.gz
