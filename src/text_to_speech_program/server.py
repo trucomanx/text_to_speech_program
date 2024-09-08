@@ -53,7 +53,7 @@ def process_tasks():
             sentences=split_text(text,split_pattern);
                         
             for m in range(len(sentences)):
-                print(sentences[m])
+                #print(sentences[m])
                 play_text(sentences[m],language,speed);
         
         time.sleep(1)

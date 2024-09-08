@@ -1,0 +1,14 @@
+[Unit]
+Description=Text-to-Speech Program Server
+After=network.target
+
+[Service]
+ExecStart=tts-program-server
+WorkingDirectory=@HOME@  
+Restart=always
+User=@USER@ 
+Environment="PATH=/usr/local/bin:/usr/bin:/bin"
+
+[Install]
+WantedBy=multi-user.target
+
