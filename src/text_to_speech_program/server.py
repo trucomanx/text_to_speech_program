@@ -24,7 +24,7 @@ def split_text(input_text,pattern_list):
     return sentences
 
     
-def play_text(text,language):
+def play_text(text,language,speed=1.25):
     if text.strip():
         # Converter o texto em fala usando gTTS
         tts = gTTS(text=text, lang=language)
@@ -32,7 +32,7 @@ def play_text(text,language):
         tts.save(tmp_filename.name)
 
         # Reproduzir o áudio
-        play_audio.ajustar_velocidade(tmp_filename.name, 1.25);
+        play_audio.ajustar_velocidade(tmp_filename.name, speed);
 
         # Remover o arquivo de áudio após reprodução
         os.remove(tmp_filename.name)
@@ -44,28 +44,18 @@ def process_tasks():
             task = task_stack.get()
             task_id, task_data = task
             
-            text          = task_data["text"]
-            language      = task_data["language"]
-            split_pattern = task_data["split_pattern"]
+            text          = task_data["text"];
+            language      = task_data["language"];
+            split_pattern = task_data["split_pattern"];
+            speed         = task_data["speed"];
 
             # Processar o texto (dividir de acordo com o padrão se necessário)
-            if split_pattern:
-                for pattern in split_pattern:
-                    text = text.replace(pattern, ' ')
+            sentences=split_text(text,split_pattern);
+            print(sentences)
             
-            play_text(text,language);
-            '''
-            # Converter o texto em fala usando gTTS
-            tts = gTTS(text=text, lang=language)
-            filename = f"{task_id}.mp3"
-            tts.save(filename)
-
-            # Reproduzir o áudio
-            play_audio.ajustar_velocidade(filename, 1.25);
-
-            # Remover o arquivo de áudio após reprodução
-            os.remove(filename)
-            '''
+            for m in range(len(sentences)):
+                print(sentences[m])
+                play_text(sentences[m],language,speed);
         
         time.sleep(1)
 

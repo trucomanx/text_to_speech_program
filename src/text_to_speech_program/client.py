@@ -7,11 +7,22 @@ import os
 # URL do servidor
 SERVER_URL = 'http://localhost:5000'
 
+def send_json_from_dict(data):
+    # Enviar solicitação POST ao servidor
+    response = requests.post(f'{SERVER_URL}/add_task', json=data)
+
+    if response.status_code == 200:
+        print(f"Tarefa enviada com sucesso! ID: {response.json()['id']}")
+        return response.json()['id'];
+    else:
+        print("Erro ao enviar a tarefa.")
+        return None
+
 def send_json_from_file(filepath):
     # Verificar se o arquivo existe
     if not os.path.isfile(filepath):
         print(f"Arquivo {filepath} não encontrado.")
-        return
+        return None
 
     # Carregar o conteúdo do arquivo JSON
     try:
@@ -19,15 +30,21 @@ def send_json_from_file(filepath):
             data = json.load(file)
     except json.JSONDecodeError:
         print(f"Erro ao ler o arquivo JSON {filepath}.")
-        return
+        return None
 
+    return send_json_from_dict(data);
+    
+    '''
     # Enviar solicitação POST ao servidor
     response = requests.post(f'{SERVER_URL}/add_task', json=data)
 
     if response.status_code == 200:
         print(f"Tarefa enviada com sucesso! ID: {response.json()['id']}")
+        return response.json()['id'];
     else:
         print("Erro ao enviar a tarefa.")
+        return None
+     '''
 
 def remove_task(task_id):
     # Enviar solicitação DELETE ao servidor
