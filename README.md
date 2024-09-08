@@ -1,12 +1,12 @@
 # Text to Speech Program
 
-Este pacote fornece um servidor de conversão de texto para fala, usando `gtts` e `playsound`, além de um programa cliente para interagir com o servidor.
+This package provides a text-to-speech server, using `gtts` and `playsound`, and a client program to interact with the server.
 
 ## Instalação
 
-### 1. Instalar o pacote localmente
+### 1. Install the package locally
 
-Para instalar o pacote localmente, siga as instruções abaixo:
+To install the package locally, follow the instructions below:
 
 ```bash
 git clone https://github.com/trucomanx/text_to_speech_program.git
@@ -14,15 +14,15 @@ cd text_to_speech_program/src
 python setup.py install
 ```
 
-### 2. Criar um pacote tar.gz para distribuição
+### 2. Create a tar.gz package for distribution
 
-Caso queira empacotar o projeto para distribuição via PyPI ou para outros usuários:
+If you want to package the project for distribution via PyPI or to other users:
 
 ```bash
 python3 setup.py sdist
 ```
 
-Isso gerará um arquivo `*.tar.gz` dentro da pasta `dist/`. O pacote pode ser instalado usando:
+This will generate a `*.tar.gz` file inside the `dist/` folder. The package can be installed using:
 
 ```bash
 pip install dist/text_to_speech_program-*.tar.gz
@@ -30,27 +30,27 @@ pip install dist/text_to_speech_program-*.tar.gz
 
 ## Uso
 
-### 1. Iniciar o servidor
+### 1. Start the server
 
-Para iniciar o servidor de texto para fala, utilize o comando abaixo:
+To start the text to speech server, use the command below:
 
 ```bash
 tts-program-server
 ```
 
-Isso inicializa um servidor que escutará na porta `5000 e estará pronto para receber solicitações de conversão de texto.
+This starts a server that will listen on port `5000` and will be ready to receive text conversion requests.
 
-### 2. Usar o cliente
+### 2. Start the client
 
-O cliente pode ser usado para enviar tarefas de conversão ou remover tarefas pendentes do servidor.
+The client can be used to submit conversion jobs or remove pending jobs from the server.
 
-#### Enviar um arquivo JSON:
+#### Send a JSON file:
 
 ```bash
 tts-program-client enviar /caminho/para/arquivo.json
 ```
 
-Exemplo de conteúdo de um arquivo JSON:
+JSON file example:
 
 ```json
 {
@@ -59,29 +59,29 @@ Exemplo de conteúdo de um arquivo JSON:
     "split_pattern": [".", "\n\n"]
 }
 ```
-#### Remover uma tarefa da pilha usando o ID:
+#### Remove a task from the stack using the ID:
 
 ```bash
 tts-program-client apagar <ID>
 ```
 
-Substitua `<ID>` pelo ID único retornado ao adicionar uma tarefa.
+Replace `<ID>` with the unique ID returned when adding a task.
 
-## Dependências
+## Dependencies
 
-As principais dependências do pacote são:
+The main dependencies of the package are:
 
-* `Flask` para o servidor
-* `gtts` para conversão de texto para fala
-* `playsound` para reprodução de áudio
-* `requests` para o cliente interagir com o servidor
+* `Flask` ​​for the server
+* `gtts` for text-to-speech
+* `playsound` for audio playback
+* `requests` for the client to interact with the server
 
-Você pode instalar todas as dependências com:
+You can install all dependencies with:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Licença
+## License
 
-Este projeto está licenciado sob a licença GPL. Consulte o arquivo `src/LICENSE para mais detalhes.
+This project is licensed under the GPL license. See the `src/LICENSE` file for more details.
