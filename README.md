@@ -70,7 +70,7 @@ The main dependencies of the package are:
 
 * `Flask` ​​for the server
 * `gtts` for text-to-speech
-* `playsound` for audio playback
+* `pydub` for audio playback
 * `requests` for the client to interact with the server
 
 You can install all dependencies with:

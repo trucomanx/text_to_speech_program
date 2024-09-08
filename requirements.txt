@@ -1,4 +1,4 @@
 Flask
 gtts
-playsound
+pydub
 requests

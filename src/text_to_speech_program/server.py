@@ -5,14 +5,37 @@ from gtts import gTTS
 import os
 import uuid
 import threading
-from playsound import playsound
 from queue import LifoQueue
 import time
+import tempfile
+
+from . import play_audio
 
 app = Flask(__name__)
 
 # Pilha para armazenar as tarefas
 task_stack = LifoQueue()
+
+def split_text(input_text,pattern_list):
+    text=str(input_text);
+    for pattern in pattern_list:
+        text = text.replace(pattern, '&');
+    sentences = [sentence.strip() for sentence in text.split('&') if sentence]
+    return sentences
+
+    
+def play_text(text,language):
+    if text.strip():
+        # Converter o texto em fala usando gTTS
+        tts = gTTS(text=text, lang=language)
+        tmp_filename = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3")
+        tts.save(tmp_filename.name)
+
+        # Reproduzir o áudio
+        play_audio.ajustar_velocidade(tmp_filename.name, 1.25);
+
+        # Remover o arquivo de áudio após reprodução
+        os.remove(tmp_filename.name)
 
 # Função assíncrona para processar a pilha
 def process_tasks():
@@ -20,8 +43,9 @@ def process_tasks():
         if not task_stack.empty():
             task = task_stack.get()
             task_id, task_data = task
-            text = task_data["text"]
-            language = task_data["language"]
+            
+            text          = task_data["text"]
+            language      = task_data["language"]
             split_pattern = task_data["split_pattern"]
 
             # Processar o texto (dividir de acordo com o padrão se necessário)
@@ -29,16 +53,19 @@ def process_tasks():
                 for pattern in split_pattern:
                     text = text.replace(pattern, ' ')
             
+            play_text(text,language);
+            '''
             # Converter o texto em fala usando gTTS
             tts = gTTS(text=text, lang=language)
             filename = f"{task_id}.mp3"
             tts.save(filename)
 
             # Reproduzir o áudio
-            playsound(filename)
+            play_audio.ajustar_velocidade(filename, 1.25);
 
             # Remover o arquivo de áudio após reprodução
             os.remove(filename)
+            '''
         
         time.sleep(1)
 
