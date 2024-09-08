@@ -4,12 +4,9 @@ import json
 import sys
 import os
 
-# URL do servidor
-SERVER_URL = 'http://localhost:5000'
-
-def send_json_from_dict(data):
+def send_json_from_dict(server_url,data):
     # Enviar solicitação POST ao servidor
-    response = requests.post(f'{SERVER_URL}/add_task', json=data)
+    response = requests.post(f'{server_url}/add_task', json=data)
 
     if response.status_code == 200:
         print(f"Tarefa enviada com sucesso! ID: {response.json()['id']}")
@@ -18,7 +15,7 @@ def send_json_from_dict(data):
         print("Erro ao enviar a tarefa.")
         return None
 
-def send_json_from_file(filepath):
+def send_json_from_file(server_url,filepath):
     # Verificar se o arquivo existe
     if not os.path.isfile(filepath):
         print(f"Arquivo {filepath} não encontrado.")
@@ -32,31 +29,24 @@ def send_json_from_file(filepath):
         print(f"Erro ao ler o arquivo JSON {filepath}.")
         return None
 
-    return send_json_from_dict(data);
-    
-    '''
-    # Enviar solicitação POST ao servidor
-    response = requests.post(f'{SERVER_URL}/add_task', json=data)
+    return send_json_from_dict(server_url,data);
 
-    if response.status_code == 200:
-        print(f"Tarefa enviada com sucesso! ID: {response.json()['id']}")
-        return response.json()['id'];
-    else:
-        print("Erro ao enviar a tarefa.")
-        return None
-     '''
 
-def remove_task(task_id):
+def remove_task(server_url,task_id):
     # Enviar solicitação DELETE ao servidor
-    response = requests.delete(f'{SERVER_URL}/remove_task/{task_id}')
+    response = requests.delete(f'{server_url}/remove_task/{task_id}')
 
     if response.status_code == 200:
         print(response.json()["message"])
+        return response.json()["message"]
     else:
-        print("Erro ao remover a tarefa.")
-
+        print("Erro ao remover a tarefa:",task_id)
+        return None
 
 def main():
+    # URL do servidor
+    SERVER_URL = 'http://localhost:5000'
+
     # Verificar o comando recebido
     if len(sys.argv) < 2:
         print("Uso: python cliente.py <comando> <argumentos>")
@@ -73,7 +63,7 @@ def main():
             sys.exit(1)
 
         filepath = sys.argv[2]
-        send_json_from_file(filepath)
+        send_json_from_file(SERVER_URL,filepath)
 
     elif command == "remove":
         if len(sys.argv) != 3:
@@ -81,7 +71,7 @@ def main():
             sys.exit(1)
 
         task_id = sys.argv[2]
-        remove_task(task_id)
+        remove_task(SERVER_URL,task_id)
 
     else:
         print("Comando não reconhecido. Use 'send' ou 'remove'.")
