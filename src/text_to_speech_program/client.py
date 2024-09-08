@@ -38,33 +38,38 @@ def remove_task(task_id):
     else:
         print("Erro ao remover a tarefa.")
 
-if __name__ == "__main__":
+
+def main():
     # Verificar o comando recebido
     if len(sys.argv) < 2:
         print("Uso: python cliente.py <comando> <argumentos>")
         print("Comandos:")
-        print("  enviar <caminho_arquivo_json>")
-        print("  apagar <ID>")
+        print("  send <caminho_arquivo_json>")
+        print("  remove <ID>")
         sys.exit(1)
 
     command = sys.argv[1]
 
-    if command == "enviar":
+    if command == "send":
         if len(sys.argv) != 3:
-            print("Uso: python cliente.py enviar <caminho_arquivo_json>")
+            print("Uso: python cliente.py send <caminho_arquivo_json>")
             sys.exit(1)
 
         filepath = sys.argv[2]
         send_json_from_file(filepath)
 
-    elif command == "apagar":
+    elif command == "remove":
         if len(sys.argv) != 3:
-            print("Uso: python cliente.py apagar <ID>")
+            print("Uso: python cliente.py remove <ID>")
             sys.exit(1)
 
         task_id = sys.argv[2]
         remove_task(task_id)
 
     else:
-        print("Comando não reconhecido. Use 'enviar' ou 'apagar'.")
+        print("Comando não reconhecido. Use 'send' ou 'remove'.")
 
+# Iniciar o servidor Flask
+if __name__ == "__main__":
+    main();
+ 

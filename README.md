@@ -35,7 +35,7 @@ To start the text to speech server, use the command below:
 tts-program-server
 ```
 
-This starts a server that will listen on port `5000` and will be ready to receive text conversion requests.
+This starts a server that will listen on `http://127.0.0.1:5000` and will be ready to receive text conversion requests.
 
 ### 2. Start the client
 
@@ -44,7 +44,7 @@ The client can be used to submit conversion jobs or remove pending jobs from the
 #### Send a JSON file:
 
 ```bash
-tts-program-client enviar /caminho/para/arquivo.json
+tts-program-client send /caminho/para/arquivo.json
 ```
 
 JSON file example:
@@ -59,7 +59,7 @@ JSON file example:
 #### Remove a task from the stack using the ID:
 
 ```bash
-tts-program-client apagar <ID>
+tts-program-client remove <ID>
 ```
 
 Replace `<ID>` with the unique ID returned when adding a task.

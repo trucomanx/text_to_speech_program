@@ -71,7 +71,10 @@ def remove_task(task_id):
 task_processor_thread = threading.Thread(target=process_tasks, daemon=True)
 task_processor_thread.start()
 
+def main():
+    app.run(debug=True);
+
 # Iniciar o servidor Flask
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    main();
 
