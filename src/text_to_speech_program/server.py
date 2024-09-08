@@ -51,8 +51,7 @@ def process_tasks():
 
             # Processar o texto (dividir de acordo com o padrão se necessário)
             sentences=split_text(text,split_pattern);
-            print(sentences)
-            
+                        
             for m in range(len(sentences)):
                 print(sentences[m])
                 play_text(sentences[m],language,speed);
