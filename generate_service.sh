@@ -38,4 +38,8 @@ sudo systemctl enable tts-program-server.service
 # Iniciar o serviço imediatamente
 sudo systemctl restart tts-program-server.service
 
-tts-program-client senddict '{ "text": "Server installed and running.", "language": "en", "split_pattern": ["."], "speed": 1.25 }'
+
+sleep 1
+DICT='{ "text": "Server installed and running. OK", "language": "en", "split_pattern": ["."], "speed": 1.25 }'
+echo 'tts-program-client senddict '\'$DICT\'
+tts-program-client senddict "$DICT"
