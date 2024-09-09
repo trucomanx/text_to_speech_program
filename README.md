@@ -2,7 +2,8 @@
 
 This package provides a text-to-speech server, using `gtts` and `playsound`, and a client program to interact with the server.
 
-## Install from source and adding to Linux service
+## Install from source and add to Linux service
+Installing text-to-speech server
 
 ```bash
 git clone https://github.com/trucomanx/text_to_speech_program.git
