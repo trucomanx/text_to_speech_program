@@ -25,32 +25,25 @@ To install the package `dist/*.tar.gz` locally, follow the instructions below:
 pip install dist/text_to_speech_program-*.tar.gz
 ```
 
-### 2. Install program as linux service
+Execute `which tts-program-server` to see where was installed probably in `/home/USERNAME/.local/bin/tts-program-server`.
+
+### 2. Add program to linux service
 
 ```bash
 chmod +x generate_service.sh
-sudo ./generate_service.sh
+./generate_service.sh
 ```
 
-## Uso
+After the last code the program server start at begin of operating system.
+Now the next commands are accepted (Use them if necessary).
 
-### 1. Start the server
-
-To start the text to speech server, use the command below:
-
-```bash
-tts-program-server
-```
-
-This starts a server that will listen on `http://127.0.0.1:5000` and will be ready to receive text conversion requests.
-
-#### Start server linux service
+#### Start server Linux service
 
 ```bash
 sudo systemctl start tts-program-server
 ```
 
-#### Stop server linux service
+#### Stop server Linux service
 
 ```bash
 sudo systemctl stop tts-program-server
@@ -61,6 +54,20 @@ sudo systemctl stop tts-program-server
 ```bash
 sudo systemctl disable tts-program-server
 ```
+
+## Uso
+
+### 1. Start the server
+
+If the program server was not add to Linux service, then to start the text to speech server, use the command below:
+
+```bash
+tts-program-server
+```
+
+This starts a server that will listen on `http://127.0.0.1:5000` and will be ready to receive text conversion requests.
+
+
 
 ### 2. Start the client
 
