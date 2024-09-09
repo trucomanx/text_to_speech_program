@@ -2,7 +2,7 @@
 
 This package provides a text-to-speech server, using `gtts` and `playsound`, and a client program to interact with the server.
 
-## Instalação
+## Installing
 
 ### 1. Create a tar.gz package for distribution
 
@@ -73,7 +73,7 @@ This starts a server that will listen on `http://127.0.0.1:5000` and will be rea
 
 The client can submit conversion text-to-speech tasks or remove pending jobs from the server.
 
-#### Send a JSON file:
+#### Sending a JSON file:
 Adding a text-to-speech task.
 
 ```bash
@@ -91,7 +91,7 @@ JSON file example:
 }
 ```
 
-#### Send a DICT string:
+#### Sending a DICT from string:
 Adding a text-to-speech task.
 
 ```bash
