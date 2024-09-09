@@ -30,8 +30,8 @@ Execute `which tts-program-server` to see where it was installed probably in `/h
 ### 2. Add a program to the Linux service
 
 ```bash
-chmod +x generate_service.sh
-./generate_service.sh
+chmod +x install_user_service.sh
+./install_user_service.sh
 ```
 
 After the last code, the program server starts at with the operating system.
