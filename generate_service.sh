@@ -38,5 +38,4 @@ sudo systemctl enable tts-program-server.service
 # Iniciar o serviço imediatamente
 sudo systemctl restart tts-program-server.service
 
-#journalctl -f -u tts-program-server.service
-#tts-program-client send /home/fernando/Downloads/arquivo.json
+tts-program-client senddict '{ "text": "Server installed and running.", "language": "en", "split_pattern": ["."], "speed": 1.25 }'

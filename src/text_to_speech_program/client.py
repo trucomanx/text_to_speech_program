@@ -9,16 +9,16 @@ def send_json_from_dict(server_url,data):
     response = requests.post(f'{server_url}/add_task', json=data)
 
     if response.status_code == 200:
-        print(f"Tarefa enviada com sucesso! ID: {response.json()['id']}")
+        print(f"Task sent successfully! ID: {response.json()['id']}")
         return response.json()['id'];
     else:
-        print("Erro ao enviar a tarefa.")
+        print("Error submitting task.")
         return None
 
 def send_json_from_file(server_url,filepath):
     # Verificar se o arquivo existe
     if not os.path.isfile(filepath):
-        print(f"Arquivo {filepath} não encontrado.")
+        print(f"File {filepath} not found.")
         return None
 
     # Carregar o conteúdo do arquivo JSON
@@ -26,7 +26,7 @@ def send_json_from_file(server_url,filepath):
         with open(filepath, 'r') as file:
             data = json.load(file)
     except json.JSONDecodeError:
-        print(f"Erro ao ler o arquivo JSON {filepath}.")
+        print(f"Error reading JSON file {filepath}.")
         return None
 
     return send_json_from_dict(server_url,data);
@@ -40,7 +40,7 @@ def remove_task(server_url,task_id):
         print(response.json()["message"])
         return response.json()["message"]
     else:
-        print("Erro ao remover a tarefa:",task_id)
+        print("Error removing task:",task_id)
         return None
 
 def main():
@@ -49,9 +49,10 @@ def main():
 
     # Verificar o comando recebido
     if len(sys.argv) < 2:
-        print("Uso: python cliente.py <comando> <argumentos>")
-        print("Comandos:")
-        print("  send <caminho_arquivo_json>")
+        print("Use: tts-program-client <command> <arguments>")
+        print("Commands:")
+        print("  send <path_arquive_json>")
+        print("  senddict \"{dict_code}\"")
         print("  remove <ID>")
         sys.exit(1)
 
@@ -59,22 +60,30 @@ def main():
 
     if command == "send":
         if len(sys.argv) != 3:
-            print("Uso: python cliente.py send <caminho_arquivo_json>")
+            print("Use: tts-program-client send <path_arquive_json>")
             sys.exit(1)
 
         filepath = sys.argv[2]
         send_json_from_file(SERVER_URL,filepath)
 
+    elif command == "senddict":
+        if len(sys.argv) != 3:
+            print("Use: tts-program-client senddict \"{dict_code}\"")
+            sys.exit(1)
+        
+        data_dict = json.loads(sys.argv[2])
+        send_json_from_dict(SERVER_URL,data_dict)
+
     elif command == "remove":
         if len(sys.argv) != 3:
-            print("Uso: python cliente.py remove <ID>")
+            print("Use: tts-program-client remove <ID>")
             sys.exit(1)
 
         task_id = sys.argv[2]
         remove_task(SERVER_URL,task_id)
 
     else:
-        print("Comando não reconhecido. Use 'send' ou 'remove'.")
+        print("Command unknown. Use 'send', 'denddict' or 'remove'.")
 
 # Iniciar o servidor Flask
 if __name__ == "__main__":
