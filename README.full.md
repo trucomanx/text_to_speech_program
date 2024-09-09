@@ -16,7 +16,7 @@ python3 setup.py sdist
 
 This will generate a `*.tar.gz` file inside the `dist/` folder. 
 
-### 1. Install the package locally
+### 2.a. Install the package tar.gz locally
 
 To install the package `dist/*.tar.gz` locally, follow the instructions below:
 
@@ -25,13 +25,24 @@ To install the package `dist/*.tar.gz` locally, follow the instructions below:
 pip install dist/text_to_speech_program-*.tar.gz
 ```
 
-Execute `which tts-program-server` to see where it was installed probably in `/home/USERNAME/.local/bin/tts-program-server`.
+Execute `which tts-program-server` to see where it was installed, probably in `/home/USERNAME/.local/bin/tts-program-server`.
 
-### 2. Add a program to the Linux service
+### 2.b. Install the package pip
+
+To install the package from `pypi`, follow the instructions below:
+
 
 ```bash
-chmod +x install_user_service.sh
-./install_user_service.sh
+pip install text_to_speech_program
+```
+
+Execute `which tts-program-server` to see where it was installed, probably in `/home/USERNAME/.local/bin/tts-program-server`.
+
+
+### 3. Add a program to the Linux service
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/trucomanx/text_to_speech_program/main/install_linux_service.sh | sh
 ```
 
 After the last code, the program server starts at with the operating system.

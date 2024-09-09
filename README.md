@@ -2,7 +2,7 @@
 
 This package provides a text-to-speech server, using `gtts` and `playsound`, and a client program to interact with the server.
 
-## Install from source and add to Linux service
+## Install from source
 Installing text-to-speech server
 
 ```bash
@@ -13,10 +13,11 @@ cd src
 python3 setup.py sdist
 pip install dist/text_to_speech_program-*.tar.gz
 ```
+## Linux service
 Adding to Linux service
 
 ```bash
-curl -fsSL https://github.com/trucomanx/text_to_speech_program/install_user_service.sh | sh
+curl -fsSL https://raw.githubusercontent.com/trucomanx/text_to_speech_program/main/install_linux_service.sh | sh
 ```
 
 ## Sending a DICT from string:
