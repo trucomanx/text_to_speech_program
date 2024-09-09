@@ -84,7 +84,7 @@ JSON file example:
 
 ```json
 {
-    "text": "Some text to convert",
+    "text": "Some text to convert.\n\n OK",
     "language": "en",
     "split_pattern": [".", "\n\n"],
     "speed":1.25
@@ -95,7 +95,7 @@ JSON file example:
 Adding a text-to-speech task.
 
 ```bash
-tts-program-client senddict '{ "text": "Some text to convert", "language": "en", "split_pattern": ["."], "speed":1.25 }'
+tts-program-client senddict '{ "text": "Some text to convert. OK", "language": "en", "split_pattern": ["."], "speed":1.25 }'
 ```
 
 #### Remove a task from the stack using the ID:
