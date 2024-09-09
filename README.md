@@ -16,8 +16,7 @@ pip install dist/text_to_speech_program-*.tar.gz
 Adding to Linux service
 
 ```bash
-chmod +x generate_service.sh
-./generate_service.sh
+curl -fsSL https://github.com/trucomanx/text_to_speech_program/install_user_service.sh | sh
 ```
 
 ## Sending a DICT from string:

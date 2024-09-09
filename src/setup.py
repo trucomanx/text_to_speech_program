@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='text_to_speech_program',
-    version='0.1.0',
+    version='0.1.1',
     description='A text-to-speech server and client using gtts and pydub',
     author='Fernando Pujaico Rivera',
     author_email='fernando.pujaico.rivera@gmail.com',
@@ -21,4 +21,14 @@ setup(
             'tts-program-client=text_to_speech_program.client:main'
         ]
     },
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: GPL License",
+        "Operating System :: OS Independent",
+    ],
+    python_requires='>=3.6',
+    package_data={
+        'text_to_speech_program': ['icons/text_to_speech_program.png'],
+    },
+    include_package_data=True,
 )

@@ -120,6 +120,15 @@ You can install all dependencies with:
 ```bash
 pip install -r requirements.txt
 ```
+## Packaging
+
+```bash
+git clone https://github.com/trucomanx/text_to_speech_program.git
+cd text_to_speech_program/src
+python setup.py sdist bdist_wheel
+pip install --upgrade twine
+twine upload dist/*
+```
 
 ## License
 
