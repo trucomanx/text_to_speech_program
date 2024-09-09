@@ -26,7 +26,7 @@ setup(
         "License :: OSI Approved :: GPL License",
         "Operating System :: OS Independent",
     ],
-    python_requires='>=3.6',
+    python_requires='>=3.8',
     package_data={
         'text_to_speech_program': ['icons/text_to_speech_program.png'],
     },
