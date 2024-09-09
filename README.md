@@ -25,16 +25,16 @@ To install the package `dist/*.tar.gz` locally, follow the instructions below:
 pip install dist/text_to_speech_program-*.tar.gz
 ```
 
-Execute `which tts-program-server` to see where was installed probably in `/home/USERNAME/.local/bin/tts-program-server`.
+Execute `which tts-program-server` to see where it was installed probably in `/home/USERNAME/.local/bin/tts-program-server`.
 
-### 2. Add program to linux service
+### 2. Add a program to the Linux service
 
 ```bash
 chmod +x generate_service.sh
 ./generate_service.sh
 ```
 
-After the last code the program server start at begin of operating system.
+After the last code, the program server starts at with the operating system.
 Now the next commands are accepted (Use them if necessary).
 
 #### Start server Linux service
@@ -49,7 +49,7 @@ sudo systemctl start tts-program-server
 sudo systemctl stop tts-program-server
 ```
 
-#### Stop service when begin linux
+#### Stop service when beginning Linux
 
 ```bash
 sudo systemctl disable tts-program-server
@@ -59,7 +59,7 @@ sudo systemctl disable tts-program-server
 
 ### 1. Start the server
 
-If the program server was not add to Linux service, then to start the text to speech server, use the command below:
+If the program server was not added to the Linux service, then to start the text-to-speech server, use the command below:
 
 ```bash
 tts-program-server
@@ -71,9 +71,10 @@ This starts a server that will listen on `http://127.0.0.1:5000` and will be rea
 
 ### 2. Start the client
 
-The client can be used to submit conversion jobs or remove pending jobs from the server.
+The client can submit conversion text-to-speech tasks or remove pending jobs from the server.
 
 #### Send a JSON file:
+Adding a text-to-speech task.
 
 ```bash
 tts-program-client send /caminho/para/arquivo.json
@@ -85,9 +86,18 @@ JSON file example:
 {
     "text": "Some text to convert",
     "language": "en",
-    "split_pattern": [".", "\n\n"]
+    "split_pattern": [".", "\n\n"],
+    "speed"=1.25
 }
 ```
+
+#### Send a DICT string:
+Adding a text-to-speech task.
+
+```bash
+tts-program-client senddict '{ "text": "Some text to convert", "language": "en", "split_pattern": ["."], "speed"=1.25 }'
+```
+
 #### Remove a task from the stack using the ID:
 
 ```bash
