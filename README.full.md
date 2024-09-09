@@ -2,9 +2,9 @@
 
 This package provides a text-to-speech server, using `gtts` and `playsound`, and a client program to interact with the server.
 
-## Installing
+## 1. Installing
 
-### 1. Create a tar.gz package for distribution
+### 1.1. Create a tar.gz package for distribution
 
 If you want to package the project for distribution via PyPI or to other users:
 
@@ -16,7 +16,7 @@ python3 setup.py sdist
 
 This will generate a `*.tar.gz` file inside the `dist/` folder. 
 
-### 2.a. Install the package tar.gz locally
+### 1.2.a. Install the package tar.gz locally
 
 To install the package `dist/*.tar.gz` locally, follow the instructions below:
 
@@ -27,7 +27,7 @@ pip install dist/text_to_speech_program-*.tar.gz
 
 Execute `which tts-program-server` to see where it was installed, probably in `/home/USERNAME/.local/bin/tts-program-server`.
 
-### 2.b. Install the package pip
+### 1.2.b. Install the package pip
 
 To install the package from `pypi`, follow the instructions below:
 
@@ -39,7 +39,7 @@ pip install text_to_speech_program
 Execute `which tts-program-server` to see where it was installed, probably in `/home/USERNAME/.local/bin/tts-program-server`.
 
 
-### 3. Add a program to the Linux service
+### 1.3. Add a program to the Linux service
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/trucomanx/text_to_speech_program/main/install_linux_service.sh | sh
@@ -48,28 +48,29 @@ curl -fsSL https://raw.githubusercontent.com/trucomanx/text_to_speech_program/ma
 After the last code, the program server starts at with the operating system.
 Now the next commands are accepted (Use them if necessary).
 
-#### Start server Linux service
+#### 1.3.1. Start server service in linux
+**You only need to start the server if it has been stopped or is disabled from starting with Linux boot**.
 
 ```bash
 sudo systemctl start tts-program-server
 ```
 
-#### Stop server Linux service
+#### 1.3.2. Stop server service in linux
 
 ```bash
 sudo systemctl stop tts-program-server
 ```
 
-#### Stop service when beginning Linux
+#### 1.3.3. Disable service at linux startup
 
 ```bash
 sudo systemctl disable tts-program-server
 ```
 
-## Uso
+## 2. Using
 
-### 1. Start the server
-
+### 2.1. Start the server
+**You only need to start the server if it has been stopped**.
 If the program server was not added to the Linux service, then to start the text-to-speech server, use the command below:
 
 ```bash
@@ -80,11 +81,11 @@ This starts a server that will listen on `http://127.0.0.1:5000` and will be rea
 
 
 
-### 2. Start the client
+### 2.2. Start the client
 
 The client can submit conversion text-to-speech tasks or remove pending jobs from the server.
 
-#### Sending a JSON file:
+#### 2.2.1. Sending a JSON file:
 Adding a text-to-speech task.
 
 ```bash
@@ -102,14 +103,14 @@ JSON file example:
 }
 ```
 
-#### Sending a DICT from string:
+#### 2.2.2. Sending a DICT from string:
 Adding a text-to-speech task.
 
 ```bash
 tts-program-client senddict '{ "text": "Some text to convert. OK", "language": "en", "split_pattern": ["."], "speed":1.25 }'
 ```
 
-#### Remove a task from the stack using the ID:
+#### 2.2.3. Remove a task from the stack using the ID:
 
 ```bash
 tts-program-client remove <ID>
@@ -117,7 +118,7 @@ tts-program-client remove <ID>
 
 Replace `<ID>` with the unique ID returned when adding a task.
 
-## Dependencies
+## 3. Dependencies
 
 The main dependencies of the package are:
 
@@ -141,6 +142,6 @@ pip install --upgrade twine
 twine upload dist/*
 ```
 
-## License
+## 4. License
 
 This project is licensed under the GPL license. See the `src/LICENSE` file for more details.

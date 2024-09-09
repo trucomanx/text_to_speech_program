@@ -13,7 +13,7 @@ cd src
 python3 setup.py sdist
 pip install dist/text_to_speech_program-*.tar.gz
 ```
-## Linux service
+## Add a program to the Linux service
 Adding to Linux service
 
 ```bash
