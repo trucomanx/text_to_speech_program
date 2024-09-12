@@ -98,4 +98,4 @@ Replace `<ID>` with the unique ID returned when adding a task.
 
 ## 3. License
 
-This project is licensed under the GPL license. See the `src/LICENSE` file for more details.
+This project is licensed under the GPL license. See the `LICENSE` file for more details.
