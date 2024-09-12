@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-
 from setuptools import setup, find_packages
 import pathlib
 
@@ -46,7 +45,6 @@ setup(
     project_urls={  # Optional
         "Bug Reports": "https://github.com/trucomanx/text_to_speech_program/issues",
         "Funding": "https://trucomanx.github.io/en/funding.html",
-        "Say Thanks!": "http://saythanks.io/to/example",
         "Source": "https://github.com/trucomanx/text_to_speech_program/",
     },
 )
