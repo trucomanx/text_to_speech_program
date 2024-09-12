@@ -13,6 +13,7 @@ cd src
 python3 setup.py sdist
 pip install dist/text_to_speech_program-*.tar.gz
 ```
+
 ## Add a program to the Linux service
 Adding to Linux service
 
@@ -24,7 +25,23 @@ curl -fsSL https://raw.githubusercontent.com/trucomanx/text_to_speech_program/ma
 Adding a text-to-speech task.
 
 ```bash
-tts-program-client senddict '{ "text": "Some text to convert. OK", "language": "en", "split_pattern": ["."], "speed":1.25 }'
+tts-program-client senddict '{ 
+    "text": "Some text to convert. OK", 
+    "language": "en", 
+    "split_pattern": ["."], "speed":1.25 
+}'
+```
+
+or
+
+```bash
+curl -X POST http://localhost:5000/add_task \
+    -H "Content-Type: application/json" \
+    -d '{
+    "text": "Some text to convert. OK", 
+    "language": "en", 
+    "split_pattern": ["."], "speed":1.25 
+}'
 ```
 
 ## More information
