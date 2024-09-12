@@ -134,6 +134,32 @@ tts-program-client remove <ID>
 
 Replace `<ID>` with the unique ID returned when adding a task.
 
+#### 2.2.4. Sending a DICT from Python
+
+```python
+import requests
+
+def send_json_from_dict(server_url,data):
+    # Enviar solicitação POST ao servidor
+    response = requests.post(f'{server_url}/add_task', json=data)
+
+    if response.status_code == 200:
+        print(f"Task sent successfully! ID: {response.json()['id']}")
+        return response.json()['id'];
+    else:
+        print("Error submitting task.")
+        return None
+
+SERVER_URL = 'http://localhost:5000'
+DATA={
+    "text": "Some text to convert. OK", 
+    "language": "en", 
+    "split_pattern": ["."], "speed":1.25 
+}
+send_json_from_dict(SERVER_URL,DATA)
+
+```
+
 ## 3. Dependencies
 
 The main dependencies of the package are:
