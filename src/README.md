@@ -1,6 +1,6 @@
 # Text to Speech Program
 
-This package provides a text-to-speech server, using `gtts` and `playsound`, and a client program to interact with the server.
+This package provides a text-to-speech server, using `gtts` and `pydub`, and a client program to interact with the server.
 
 ## 1. Installing
 
@@ -84,7 +84,24 @@ JSON file example:
 Adding a text-to-speech task.
 
 ```bash
-tts-program-client senddict '{ "text": "Some text to convert. OK", "language": "en", "split_pattern": ["."], "speed":1.25 }'
+tts-program-client senddict '{ 
+    "text": "Some text to convert. OK", 
+    "language": "en", 
+    "split_pattern": ["."], 
+    "speed":1.25 
+}'
+```
+
+or
+
+```bash
+curl -X POST http://localhost:5000/add_task \
+    -H "Content-Type: application/json" \
+    -d '{
+    "text": "Some text to convert. OK", 
+    "language": "en", 
+    "split_pattern": ["."], "speed":1.25 
+}'
 ```
 
 #### 2.2.3. Remove a task from the stack using the ID:
