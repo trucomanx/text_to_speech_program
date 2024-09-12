@@ -154,7 +154,8 @@ SERVER_URL = 'http://localhost:5000'
 DATA={
     "text": "Some text to convert. OK", 
     "language": "en", 
-    "split_pattern": ["."], "speed":1.25 
+    "split_pattern": ["."], 
+    "speed":1.25 
 }
 send_json_from_dict(SERVER_URL,DATA)
 
