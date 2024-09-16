@@ -142,7 +142,18 @@ play_processor_thread = threading.Thread(target=process_play, daemon=True)
 play_processor_thread.start()
 
 def main():
-    app.run(debug=True);
+    '''
+    Modo de Depuração (debug=True)
+
+        Recarga Automática: Quando você faz alterações no código do servidor, o Flask recarrega automaticamente o servidor para refletir essas mudanças sem que você precise reiniciar manualmente. Isso é útil durante o desenvolvimento, pois permite ver as alterações imediatamente.
+
+        Mensagens de Erro Detalhadas: O Flask exibe mensagens de erro mais detalhadas e rastreamentos (tracebacks) quando ocorre um erro, ajudando a identificar e corrigir problemas no código.
+
+        Desenvolvimento Seguro: O modo de depuração não deve ser usado em produção, pois pode revelar informações sensíveis e tornar o aplicativo vulnerável a ataques. É destinado apenas para o ambiente de desenvolvimento.
+    '''
+    #app.run(debug=True);
+    #app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000)
 
 # Iniciar o servidor Flask
 if __name__ == "__main__":
