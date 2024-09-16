@@ -67,6 +67,12 @@ sudo systemctl stop tts-program-server
 sudo systemctl disable tts-program-server
 ```
 
+#### 1.3.4. Show journal of service
+
+```bash
+journalctl -u tts-program-server
+```
+
 ## 2. Using
 
 ### 2.1. Start the server

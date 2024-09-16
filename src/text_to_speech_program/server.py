@@ -5,16 +5,25 @@ from gtts import gTTS
 import os
 import uuid
 import threading
-from queue import LifoQueue
+from queue import Queue, LifoQueue
 import time
 import tempfile
+from langdetect import detect
 
 from . import play_audio
 
 app = Flask(__name__)
 
 # Pilha para armazenar as tarefas
-task_stack = LifoQueue()
+task_stack = Queue()
+
+
+def detectar_linguagem(texto):
+    try:
+        linguagem = detect(texto)
+        return linguagem
+    except Exception as e:
+        return "en";
 
 def split_text(input_text,pattern_list):
     text=str(input_text);
@@ -49,12 +58,7 @@ def process_tasks():
             split_pattern = task_data["split_pattern"];
             speed         = task_data["speed"];
 
-            # Processar o texto (dividir de acordo com o padrão se necessário)
-            sentences=split_text(text,split_pattern);
-                        
-            for m in range(len(sentences)):
-                #print(sentences[m])
-                play_text(sentences[m],language,speed);
+            play_text(text,language,speed);
         
         time.sleep(1)
 
@@ -63,7 +67,21 @@ def process_tasks():
 def add_task():
     data = request.json
     task_id = str(uuid.uuid4())
-    task_stack.put((task_id, data))
+    
+    if data["language"]=='':
+        data["language"]=detectar_linguagem(data["text"]);
+    
+    sentences=split_text(data["text"],data["split_pattern"]);
+    
+    for m in range(len(sentences)):
+        data_part=dict();
+        data_part["text"]=sentences[m];
+        data_part["speed"]=data["speed"];
+        data_part["language"]=data["language"];
+        data_part["split_pattern"]=data["split_pattern"];
+        
+        task_stack.put((task_id, data_part))
+    
     return jsonify({"id": task_id})
 
 # Rota para remover um item da pilha por ID
