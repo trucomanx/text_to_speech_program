@@ -99,7 +99,6 @@ task_processor_thread = threading.Thread(target=process_tasks, daemon=True)
 task_processor_thread.start()
 
 def main():
-    print("hi world")
     app.run(debug=True);
 
 # Iniciar o servidor Flask
