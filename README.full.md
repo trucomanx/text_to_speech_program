@@ -29,7 +29,7 @@ Execute `which tts-program-server` to see where it was installed, probably in `/
 
 ### 1.2.b. Install the package pip
 
-To install the package from `pypi`, follow the instructions below:
+To install the package from [pypi](https://pypi.org/project/text-to-speech-program), follow the instructions below:
 
 
 ```bash
