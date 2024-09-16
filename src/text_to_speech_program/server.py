@@ -7,7 +7,7 @@ import threading
 from queue import Queue
 import time
 from langdetect import detect
-
+import json
 from . import work_audio
 
 app = Flask(__name__)
@@ -141,19 +141,56 @@ task_processor_thread.start()
 play_processor_thread = threading.Thread(target=process_play, daemon=True)
 play_processor_thread.start()
 
+################################################################################
+
+DEFAULT_CONFIG = {
+    "host": "0.0.0.0",
+    "port": 5000
+}
+
+def load_config():
+    """Carrega a configuração do arquivo JSON, criando-o com valores padrão se não existir."""
+    home_directory = os.path.expanduser('~')
+    config_directory = os.path.join(home_directory, '.config', 'text_to_speech_program')
+    config_path = os.path.join(config_directory, 'config.json')
+
+    # Cria o diretório de configuração se não existir
+    os.makedirs(config_directory, exist_ok=True)
+
+    if not os.path.exists(config_path):
+        # Cria o arquivo com valores padrão se não existir
+        with open(config_path, 'w') as file:
+            json.dump(DEFAULT_CONFIG, file, indent=4)
+    
+    # Carrega a configuração do arquivo
+    with open(config_path, 'r') as file:
+        config = json.load(file)
+    
+    return config
+
 def main():
     '''
     Modo de Depuração (debug=True)
 
-        Recarga Automática: Quando você faz alterações no código do servidor, o Flask recarrega automaticamente o servidor para refletir essas mudanças sem que você precise reiniciar manualmente. Isso é útil durante o desenvolvimento, pois permite ver as alterações imediatamente.
+    Recarga Automática: Quando você faz alterações no código do servidor, 
+    o Flask recarrega automaticamente o servidor para refletir essas mudanças sem que você precise reiniciar manualmente. 
+    Isso é útil durante o desenvolvimento, pois permite ver as alterações imediatamente.
 
-        Mensagens de Erro Detalhadas: O Flask exibe mensagens de erro mais detalhadas e rastreamentos (tracebacks) quando ocorre um erro, ajudando a identificar e corrigir problemas no código.
+    Mensagens de Erro Detalhadas: O Flask exibe mensagens de erro mais detalhadas e rastreamentos (tracebacks) 
+    quando ocorre um erro, ajudando a identificar e corrigir problemas no código.
 
-        Desenvolvimento Seguro: O modo de depuração não deve ser usado em produção, pois pode revelar informações sensíveis e tornar o aplicativo vulnerável a ataques. É destinado apenas para o ambiente de desenvolvimento.
+    Desenvolvimento Seguro: O modo de depuração não deve ser usado em produção, 
+    pois pode revelar informações sensíveis e tornar o aplicativo vulnerável a ataques. 
+    É destinado apenas para o ambiente de desenvolvimento.
     '''
-    #app.run(debug=True);
-    #app.run(host='0.0.0.0', port=5000, debug=True)
-    app.run(host='0.0.0.0', port=5000)
+    
+    config = load_config()
+    host = config.get('host', '0.0.0.0')  # Valor padrão se não especificado
+    port = config.get('port', 5000)        # Valor padrão se não especificado
+    
+    #app.run(debug=True); # http://localhost:5000
+    #app.run(host=host, port=port, debug=True)
+    app.run(host=host, port=port)
 
 # Iniciar o servidor Flask
 if __name__ == "__main__":
