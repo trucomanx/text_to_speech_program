@@ -41,7 +41,7 @@ sudo systemctl stop tts-program-server
 #### 1.2.3. Disable service at linux startup
 
 ```bash
-sudo systemctl disable tts-program-server
+sudo systemctl disable tts-program-server -f
 ```
 #### 1.2.4. Show journal of service
 

@@ -70,7 +70,7 @@ sudo systemctl disable tts-program-server
 #### 1.3.4. Show journal of service
 
 ```bash
-journalctl -u tts-program-server
+journalctl -u tts-program-server  -f
 ```
 
 ## 2. Using

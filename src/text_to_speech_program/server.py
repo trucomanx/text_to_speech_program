@@ -1,16 +1,14 @@
 #!/usr/bin/python3
 
 from flask import Flask, request, jsonify
-from gtts import gTTS
 import os
 import uuid
 import threading
-from queue import Queue, LifoQueue
+from queue import Queue
 import time
-import tempfile
 from langdetect import detect
 
-from . import play_audio
+from . import work_audio
 
 app = Flask(__name__)
 
@@ -33,19 +31,6 @@ def split_text(input_text,pattern_list):
     return sentences
 
     
-def play_text(text,language,speed=1.25):
-    if text.strip():
-        # Converter o texto em fala usando gTTS
-        tts = gTTS(text=text, lang=language)
-        tmp_filename = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3")
-        tts.save(tmp_filename.name)
-
-        # Reproduzir o áudio
-        play_audio.ajustar_velocidade(tmp_filename.name, speed);
-
-        # Remover o arquivo de áudio após reprodução
-        os.remove(tmp_filename.name)
-
 # Função assíncrona para processar a pilha
 def process_tasks():
     while True:
@@ -57,10 +42,18 @@ def process_tasks():
             language      = task_data["language"];
             split_pattern = task_data["split_pattern"];
             speed         = task_data["speed"];
-
-            play_text(text,language,speed);
         
-        time.sleep(1)
+            if text.strip():
+                # Converter o texto em fala usando gTTS
+                audio_filepath = work_audio.text_to_audio_file(text,language)
+
+                # Reproduzir o áudio
+                work_audio.play_audio_file(audio_filepath, speed);
+
+                # Remover o arquivo de áudio após reprodução
+                os.remove(audio_filepath)
+        
+        time.sleep(0.001)
 
 # Rota para receber os dados do cliente
 @app.route('/add_task', methods=['POST'])
@@ -106,6 +99,7 @@ task_processor_thread = threading.Thread(target=process_tasks, daemon=True)
 task_processor_thread.start()
 
 def main():
+    print("hi world")
     app.run(debug=True);
 
 # Iniciar o servidor Flask
