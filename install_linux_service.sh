@@ -1,5 +1,7 @@
 #!/bin/bash
 
+pip install --upgrade text-to-speech-program
+
 # Defina as variáveis que você deseja substituir
 USER=$(whoami)  # Nome do usuário atual
 GROUP=$(id -gn) # Nome do grupo principal do usuário atual
@@ -20,6 +22,8 @@ StartLimitIntervalSec=0
 Type=simple
 Restart=always
 RestartSec=1
+StandardOutput=journal+console
+StandardError=journal+console
 User=$USER
 Group=$GROUP
 Environment=XDG_RUNTIME_DIR=/run/user/$USERID

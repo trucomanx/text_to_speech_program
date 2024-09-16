@@ -9,7 +9,7 @@ long_description = (here / "README.md").read_text(encoding="utf-8");
 
 setup(
     name='text_to_speech_program',
-    version='0.1.2',
+    version='0.1.3',
     description='A text-to-speech server and client using gtts and pydub',
     author='Fernando Pujaico Rivera',
     author_email='fernando.pujaico.rivera@gmail.com',

@@ -27,7 +27,7 @@ pip install dist/text_to_speech_program-*.tar.gz
 
 Execute `which tts-program-server` to see where it was installed, probably in `/home/USERNAME/.local/bin/tts-program-server`.
 
-### 1.2.b. Install the package pip
+### 1.2.b. Install the package from pip
 
 To install the package from [pypi](https://pypi.org/project/text-to-speech-program), follow the instructions below:
 
@@ -39,7 +39,7 @@ pip install text_to_speech_program
 Execute `which tts-program-server` to see where it was installed, probably in `/home/USERNAME/.local/bin/tts-program-server`.
 
 
-### 1.3. Add a program to the Linux service
+### 1.3. Install the package from pip and add to the Linux service
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/trucomanx/text_to_speech_program/main/install_linux_service.sh | sh

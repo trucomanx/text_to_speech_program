@@ -1,25 +1,27 @@
 #!/usr/bin/python3
 
+import os
 import io
 from pydub import AudioSegment
 from pydub.playback import play
 
 def play_audio_file(audio_path, fator):
-    # Carregar o arquivo de áudio
-    audio = AudioSegment.from_file(audio_path)
-    
-    # Ajustar a velocidade sem alterar o pitch
-    audio_modificado = audio.speedup(playback_speed=fator)
-    
-    # Exportar o áudio para um buffer em memória
-    audio_buffer = io.BytesIO()
-    audio_modificado.export(audio_buffer, format="wav")
-    
-    # Reposicionar o cursor no início do buffer
-    audio_buffer.seek(0)
-    
-    # Reproduzir o áudio modificado diretamente do buffer
-    play(AudioSegment.from_wav(audio_buffer))
+    if os.path.exists(audio_path):
+        # Carregar o arquivo de áudio
+        audio = AudioSegment.from_file(audio_path)
+        
+        # Ajustar a velocidade sem alterar o pitch
+        audio_modificado = audio.speedup(playback_speed=fator)
+        
+        # Exportar o áudio para um buffer em memória
+        audio_buffer = io.BytesIO()
+        audio_modificado.export(audio_buffer, format="wav")
+        
+        # Reposicionar o cursor no início do buffer
+        audio_buffer.seek(0)
+        
+        # Reproduzir o áudio modificado diretamente do buffer
+        play(AudioSegment.from_wav(audio_buffer))
 
 import tempfile
 from gtts import gTTS
