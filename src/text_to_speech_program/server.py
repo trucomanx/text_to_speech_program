@@ -97,12 +97,15 @@ def add_task():
 def remove_id_from_stack(name_stack,task_id):
     temp_stack = []
     
+    count=0;
+    
     # Desempilhar para verificar se o ID está na pilha
     while not name_stack.empty():
         task = name_stack.get()
         if task[0] != task_id:
             temp_stack.append(task)
         else:
+            count = count+1;
             if isinstance(task[1], str):
                 if os.path.exists(task[1]):
                     try:
@@ -113,12 +116,14 @@ def remove_id_from_stack(name_stack,task_id):
     # Reempilhar os itens que não foram removidos
     for task in temp_stack:
         name_stack.put(task);
+    
+    return count;
 
 # Rota para remover um item da pilha por ID
 @app.route('/remove_task/<task_id>', methods=['DELETE'])
 def remove_task(task_id):
-    remove_id_from_stack(task_stack,task_id)
-    remove_id_from_stack(play_stack,task_id)
+    count_t = remove_id_from_stack(task_stack,task_id)
+    count_p = remove_id_from_stack(play_stack,task_id)
     '''
     temp_stack = []
     
@@ -133,7 +138,7 @@ def remove_task(task_id):
         task_stack.put(task)
     '''
     
-    return jsonify({"message": f"Tasks with ID {task_id} removed."})
+    return jsonify({"message": f"There were found and removed {count_p} tasks with id {task_id}."});
 
 # Iniciar a thread para processar a pilha de forma assíncrona
 task_processor_thread = threading.Thread(target=process_tasks, daemon=True)
