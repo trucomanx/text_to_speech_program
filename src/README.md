@@ -80,7 +80,7 @@ JSON file example:
 {
     "text": "Some text to convert.\n\n OK",
     "language": "en",
-    "split_pattern": [".", "\n\n"],
+    "split_pattern": [".", "\n\n", "\n\r\n"],
     "speed":1.25
 }
 ```
