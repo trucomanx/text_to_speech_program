@@ -4,36 +4,26 @@ This package provides a text-to-speech server, using `gtts` and `playsound`, and
 
 ## 1. Installing
 
-### 1.1. Create a tar.gz package for distribution
+### 1.1. Create a tar.gz package and install
 
-If you want to package the project for distribution via PyPI or to other users:
+If you want to create a tar.gz package from source and install:
 
 ```bash
 git clone https://github.com/trucomanx/text_to_speech_program.git
 cd text_to_speech_program/src
 python3 setup.py sdist
-```
-
-This will generate a `*.tar.gz` file inside the `dist/` folder. 
-
-### 1.2.a. Install the package tar.gz locally
-
-To install the package `dist/*.tar.gz` locally, follow the instructions below:
-
-
-```bash
 pip install dist/text_to_speech_program-*.tar.gz
 ```
 
 Execute `which tts-program-server` to see where it was installed, probably in `/home/USERNAME/.local/bin/tts-program-server`.
 
-### 1.2.b. Install the package from pip
+### 1.2. Install the package from pip
 
 To install the package from [pypi](https://pypi.org/project/text-to-speech-program), follow the instructions below:
 
 
 ```bash
-pip install text_to_speech_program
+pip install text-to-speech-program
 ```
 
 Execute `which tts-program-server` to see where it was installed, probably in `/home/USERNAME/.local/bin/tts-program-server`.
@@ -83,8 +73,8 @@ If the program server was not added to the Linux service, then to start the text
 tts-program-server
 ```
 
-This starts a server that will listen on `http://127.0.0.1:5000` and will be ready to receive text conversion requests.
-
+This starts a server that will listen, by default, on `http://127.0.0.1:5000` and will be ready to receive text conversion requests.
+To modify these values see `tts-program-server config`.
 
 
 ### 2.2. Start the client
@@ -140,13 +130,35 @@ tts-program-client remove <ID>
 
 Replace `<ID>` with the unique ID returned when adding a task.
 
-#### 2.2.4. Sending a DICT from Python
+### 2.3. Make a client in Python
 
 ```python
 import requests
 
+def remove_task(server_url,task_id):
+    # Send DELETE request to server
+    response = requests.delete(f'{server_url}/remove_task/{task_id}')
+
+    if response.status_code == 200:
+        print(response.json()["message"])
+        return response.json()["message"]
+    else:
+        print("Error removing task:",task_id)
+        return None
+
 def send_json_from_dict(server_url,data):
-    # Enviar solicitação POST ao servidor
+    """
+    Sends a POST request to the server with a JSON payload.
+
+    Args:
+        server_url (str): The base URL of the server.
+        data (dict): A dictionary containing the data to be sent as JSON.
+
+    Returns:
+        str: The ID of the task if successfully sent, or None if there was an error.
+    """
+	
+    # Send POST request to the server
     response = requests.post(f'{server_url}/add_task', json=data)
 
     if response.status_code == 200:
@@ -154,16 +166,23 @@ def send_json_from_dict(server_url,data):
         return response.json()['id'];
     else:
         print("Error submitting task.")
-        return None
+        return None;
 
-SERVER_URL = 'http://localhost:5000'
+# Example usage:
+
+SERVER_URL = 'http://localhost:5000'; # If host is localhost and port is 5000
+
 DATA={
     "text": "Some text to convert. OK", 
     "language": "en", 
     "split_pattern": ["."], 
     "speed":1.25 
 }
-send_json_from_dict(SERVER_URL,DATA)
+
+
+ID=send_json_from_dict(SERVER_URL,DATA);
+
+#msg=remove_task(SERVER_URL,ID);
 
 ```
 
@@ -181,7 +200,7 @@ You can install all dependencies with:
 ```bash
 pip install -r requirements.txt
 ```
-## Packaging
+## 4. Packaging
 
 ```bash
 git clone https://github.com/trucomanx/text_to_speech_program.git
@@ -191,6 +210,6 @@ pip install --upgrade twine
 twine upload dist/*
 ```
 
-## 4. License
+## 5. License
 
 This project is licensed under the GPL license. See the `src/LICENSE` file for more details.

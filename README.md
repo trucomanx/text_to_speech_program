@@ -14,7 +14,7 @@ python3 setup.py sdist
 pip install dist/text_to_speech_program-*.tar.gz
 ```
 
-## Install the package from pip and add to the Linux service
+## Install from pip and add to the Linux service
 Adding to Linux service
 
 ```bash
@@ -28,19 +28,8 @@ Adding a text-to-speech task.
 tts-program-client senddict '{ 
     "text": "Some text to convert. OK", 
     "language": "en", 
-    "split_pattern": ["."], "speed":1.25 
-}'
-```
-
-or
-
-```bash
-curl -X POST http://localhost:5000/add_task \
-    -H "Content-Type: application/json" \
-    -d '{
-    "text": "Some text to convert. OK", 
-    "language": "en", 
-    "split_pattern": ["."], "speed":1.25 
+    "split_pattern": ["."], 
+	"speed": 1.25 
 }'
 ```
 

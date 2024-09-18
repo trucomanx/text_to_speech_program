@@ -59,8 +59,8 @@ If the program server was not added to the Linux service, then to start the text
 tts-program-server
 ```
 
-This starts a server that will listen on `http://127.0.0.1:5000` and will be ready to receive text conversion requests.
-
+This starts a server that will listen, by default, on `http://127.0.0.1:5000` and will be ready to receive text conversion requests.
+To modify these values see `tts-program-server config`.
 
 
 ### 2.2. Start the client
@@ -97,7 +97,7 @@ tts-program-client senddict '{
 }'
 ```
 
-or
+or if host is `localhost` and port is `5000`. See `tts-program-client config` to conf the localhost and port.
 
 ```bash
 curl -X POST http://localhost:5000/add_task \
@@ -116,6 +116,62 @@ tts-program-client remove <ID>
 ```
 
 Replace `<ID>` with the unique ID returned when adding a task.
+
+### 2.3. Make a client in Python
+
+```python
+import requests
+
+def remove_task(server_url,task_id):
+    # Send DELETE request to server
+    response = requests.delete(f'{server_url}/remove_task/{task_id}')
+
+    if response.status_code == 200:
+        print(response.json()["message"])
+        return response.json()["message"]
+    else:
+        print("Error removing task:",task_id)
+        return None
+
+def send_json_from_dict(server_url,data):
+    """
+    Sends a POST request to the server with a JSON payload.
+
+    Args:
+        server_url (str): The base URL of the server.
+        data (dict): A dictionary containing the data to be sent as JSON.
+
+    Returns:
+        str: The ID of the task if successfully sent, or None if there was an error.
+    """
+	
+    # Send POST request to the server
+    response = requests.post(f'{server_url}/add_task', json=data)
+
+    if response.status_code == 200:
+        print(f"Task sent successfully! ID: {response.json()['id']}")
+        return response.json()['id'];
+    else:
+        print("Error submitting task.")
+        return None;
+
+# Example usage:
+
+SERVER_URL = 'http://localhost:5000'; # If host is localhost and port is 5000
+
+DATA={
+    "text": "Some text to convert. OK", 
+    "language": "en", 
+    "split_pattern": ["."], 
+    "speed":1.25 
+}
+
+
+ID=send_json_from_dict(SERVER_URL,DATA);
+
+#msg=remove_task(SERVER_URL,ID);
+
+```
 
 
 ## 3. License
